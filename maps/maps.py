@@ -1,4 +1,5 @@
 from typing import Union
+from functools import reduce
 
 
 class MapExercise:
@@ -13,7 +14,19 @@ class MapExercise:
         Ключи словаря: name, rating_kinopoisk, rating_imdb, genres, year, access_level, country
         :return: Средний рейтинг фильмов у которых две или больше стран
         """
-        pass
+
+        def get_rate(movie: dict) -> float:
+            if movie["rating_kinopoisk"] not in ["0", ""] and len(movie["country"].split(",")) >= 2:
+                return float(movie["rating_kinopoisk"])
+            return None
+
+        list_of_ratings = [
+            rating for rating in (map(get_rate, list_of_movies)) if rating is not None
+        ]
+
+        sum_ratings = reduce(lambda x, y: x + y, list_of_ratings, 0.0)
+
+        return sum_ratings / len(list_of_ratings)
 
     @staticmethod
     def chars_count(list_of_movies: list[dict], rating: Union[float, int]) -> int:
@@ -28,4 +41,15 @@ class MapExercise:
         :return: Количество букв 'и' в названиях всех фильмов с рейтингом больше
         или равным заданному значению
         """
-        pass
+
+        def get_name(movie: dict) -> float:
+            if (
+                movie["rating_kinopoisk"] not in ["0", ""]
+                and float(movie["rating_kinopoisk"]) > rating
+            ):
+                return movie["name"]
+            return None
+
+        list_of_movies = [movie for movie in (map(get_name, list_of_movies)) if movie is not None]
+        count = reduce(lambda x, y: x + y.count("и"), list_of_movies, 0)
+        return count
