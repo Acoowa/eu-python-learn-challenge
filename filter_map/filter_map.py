@@ -18,6 +18,6 @@ class FilterMapExercise:
         if not input_array:
             return input_array
 
-        mapped_list = [func(el) for el in input_array]
-        filtered_list = [el[1] for el in mapped_list if el[0]]
+        mapped_list = [func(value) for value in input_array]
+        filtered_list = [value[1] for value in mapped_list if value[0]]
         return filtered_list
