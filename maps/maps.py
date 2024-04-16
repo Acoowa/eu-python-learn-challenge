@@ -16,7 +16,7 @@ class MapExercise:
         """
 
         def get_rate(movie: dict) -> float:
-            if movie["rating_kinopoisk"] not in ["0", ""] and len(movie["country"].split(",")) >= 2:
+            if movie["rating_kinopoisk"] not in ["0", ""] and movie["country"].count(",") >= 1:
                 return float(movie["rating_kinopoisk"])
             return None
 
@@ -24,9 +24,7 @@ class MapExercise:
             rating for rating in (map(get_rate, list_of_movies)) if rating is not None
         ]
 
-        sum_ratings = reduce(lambda x, y: x + y, list_of_ratings, 0.0)
-
-        return sum_ratings / len(list_of_ratings)
+        return sum(list_of_ratings) / len(list_of_ratings)
 
     @staticmethod
     def chars_count(list_of_movies: list[dict], rating: Union[float, int]) -> int:
