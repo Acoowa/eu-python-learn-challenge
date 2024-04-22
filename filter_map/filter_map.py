@@ -19,5 +19,5 @@ class FilterMapExercise:
             return input_array
 
         mapped_list = [func(value) for value in input_array]
-        filtered_list = [value[1] for value in mapped_list if value[0]]
+        filtered_list = [value for (flag, value) in mapped_list if flag]
         return filtered_list
