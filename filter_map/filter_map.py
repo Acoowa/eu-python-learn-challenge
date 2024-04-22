@@ -15,4 +15,9 @@ class FilterMapExercise:
         :param input_array: Исходный список.
         :return: Отфильтрованный список.
         """
-        pass
+        if not input_array:
+            return input_array
+
+        mapped_list = [func(value) for value in input_array]
+        filtered_list = [value for (flag, value) in mapped_list if flag]
+        return filtered_list
