@@ -15,7 +15,7 @@ class MapExercise:
         :return: Средний рейтинг фильмов у которых две или больше стран
         """
 
-        def get_rate(movie: dict) -> float:
+        def get_rate(movie: dict) -> float or None:
             if movie["rating_kinopoisk"] not in ["0", ""] and movie["country"].count(",") >= 1:
                 return float(movie["rating_kinopoisk"])
             return None
@@ -40,7 +40,7 @@ class MapExercise:
         или равным заданному значению
         """
 
-        def get_name(movie: dict) -> float:
+        def get_name(movie: dict) -> float or None:
             if (
                 movie["rating_kinopoisk"] not in ["0", ""]
                 and float(movie["rating_kinopoisk"]) > rating
@@ -49,5 +49,5 @@ class MapExercise:
             return None
 
         list_of_movies = [movie for movie in (map(get_name, list_of_movies)) if movie is not None]
-        count = reduce(lambda x, y: x + y.count("и"), list_of_movies, 0)
+        count = sum(i.count("и") for i in list_of_movies)
         return count
